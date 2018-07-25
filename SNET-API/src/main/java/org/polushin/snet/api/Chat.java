@@ -1,4 +1,4 @@
-package org.polushin.snet.api.input;
+package org.polushin.snet.api;
 
 import com.sun.istack.internal.NotNull;
 

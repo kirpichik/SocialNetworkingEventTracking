@@ -1,7 +1,7 @@
-package org.polushin.snet.api.input.actions;
+package org.polushin.snet.api.actions;
 
 import com.sun.istack.internal.NotNull;
-import org.polushin.snet.api.input.Message;
+import org.polushin.snet.api.Message;
 
 public interface ChatAction extends Message {
 

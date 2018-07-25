@@ -1,6 +1,6 @@
-package org.polushin.snet.api.input.attachments;
+package org.polushin.snet.api.attachments;
 
-import org.polushin.snet.api.input.Message;
+import org.polushin.snet.api.Message;
 
 import java.net.URL;
 

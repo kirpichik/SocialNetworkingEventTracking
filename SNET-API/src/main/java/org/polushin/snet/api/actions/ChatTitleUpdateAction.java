@@ -1,8 +1,8 @@
-package org.polushin.snet.api.input.actions;
+package org.polushin.snet.api.actions;
 
 import com.sun.istack.internal.NotNull;
-import org.polushin.snet.api.input.Chat;
-import org.polushin.snet.api.input.User;
+import org.polushin.snet.api.Chat;
+import org.polushin.snet.api.User;
 
 import java.util.Objects;
 

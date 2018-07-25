@@ -1,4 +1,4 @@
-package org.polushin.snet.api.input;
+package org.polushin.snet.api;
 
 public interface User extends Chat {
 

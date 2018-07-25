@@ -1,4 +1,4 @@
-package org.polushin.snet.api.input.attachments;
+package org.polushin.snet.api.attachments;
 
 import java.net.URL;
 
