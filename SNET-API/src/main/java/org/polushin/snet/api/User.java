@@ -7,4 +7,14 @@ public interface User extends Chat {
      */
     long getUserId();
 
+    /**
+     * @return User's first name.
+     */
+    String getFirstName();
+
+    /**
+     * @return User's last name.
+     */
+    String getLastName();
+
 }
