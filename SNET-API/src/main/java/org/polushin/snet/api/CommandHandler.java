@@ -4,6 +4,11 @@ import org.polushin.snet.api.actions.CommandAction;
 
 public interface CommandHandler {
 
+    /**
+     * Handle input command action.
+     *
+     * @param command Command action.
+     */
     void onCommand(CommandAction command);
 
 }
