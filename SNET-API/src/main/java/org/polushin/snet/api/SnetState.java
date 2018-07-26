@@ -15,30 +15,56 @@ public class SnetState {
     private final Set<ChatActionHandler> actionHandlers = new HashSet<>();
     private final Map<String, CommandHandler> commands = new HashMap<>();
 
+    /**
+     * Adds message handler.
+     *
+     * @param handler New handler.
+     */
     public void addMessageHandler(@NotNull MessageHandler handler) {
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
         messageHandlers.add(handler);
     }
 
+    /**
+     * Removes message handler.
+     *
+     * @param handler Handler.
+     */
     public void removeMessageHandler(@NotNull MessageHandler handler) {
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
         messageHandlers.remove(handler);
     }
 
+    /**
+     * Adds action handler.
+     *
+     * @param handler New handler.
+     */
     public void addActionHandler(@NotNull ChatActionHandler handler) {
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
         actionHandlers.add(handler);
     }
 
+    /**
+     * Removes action handler.
+     *
+     * @param handler Handler.
+     */
     public void removeActionHandler(@NotNull ChatActionHandler handler) {
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
         actionHandlers.remove(handler);
     }
 
+    /**
+     * Sets command handler.
+     *
+     * @param commandName Name of command.
+     * @param handler New handler.
+     */
     public void setCommandHandler(@NotNull String commandName, @NotNull CommandHandler handler) {
         Objects.requireNonNull(commandName, "Command name cannot be null!");
         Objects.requireNonNull(handler, "Handler cannot be null!");
@@ -46,28 +72,59 @@ public class SnetState {
         commands.put(commandName, handler);
     }
 
+    /**
+     * Removes command handler.
+     *
+     * @param commandName Name of command.
+     */
     public void removeCommandHandler(@NotNull String commandName) {
         Objects.requireNonNull(commandName, "Command name cannot be null!");
 
         commands.remove(commandName);
     }
 
-    public <T extends SocialNetwork> boolean registerSocialNetwork(@NotNull Class<T> clazz, @NotNull T socialNetwork) {
+    /**
+     * Registers social network implementation.
+     *
+     * @param clazz Social Network class type.
+     * @param socialNetwork Instance of social network.
+     * @param <T> Social Network type.
+     *
+     * @throws IllegalStateException If this network type already registered.
+     */
+    public <T extends SocialNetwork> void registerSocialNetwork(@NotNull Class<T> clazz, @NotNull T socialNetwork) {
         Objects.requireNonNull(clazz, "Class cannot be null!");
         Objects.requireNonNull(socialNetwork, "Implementation cannot be null!");
 
-        SocialNetwork old = socialNetworks.put(clazz, socialNetwork);
+        SocialNetwork old = socialNetworks.get(clazz);
         if (old != null)
-            old.destroy();
-        return old == null;
+            throw new IllegalStateException("This Social Network class already registered!");
+
+        socialNetworks.put(clazz, socialNetwork);
     }
 
-    public boolean registerTracker(@NotNull EventTracker tracker) {
+    /**
+     * Registers new event tracker.
+     *
+     * @param tracker New tracker.
+     *
+     * @throws IllegalStateException If this tracker instance already registered.
+     */
+    public void registerTracker(@NotNull EventTracker tracker) {
         Objects.requireNonNull(tracker, "Tracker cannot be null!");
 
-        return trackers.add(tracker);
+        addActionHandler(tracker);
+        addMessageHandler(tracker);
+
+        if (!trackers.add(tracker))
+            throw new IllegalStateException("This event tracker already registered!");
     }
 
+    /**
+     * Sends an update to all registered handlers.
+     *
+     * @param message Message update.
+     */
     public void performUpdate(@NotNull Message message) {
         Objects.requireNonNull(message, "Message cannot be null!");
 
@@ -78,6 +135,11 @@ public class SnetState {
         }
     }
 
+    /**
+     * Sends an update to all registered handlers.
+     *
+     * @param action Action update.
+     */
     public void performUpdate(@NotNull ChatAction action) {
         Objects.requireNonNull(action, "Chat action cannot be null!");
 
@@ -88,6 +150,11 @@ public class SnetState {
         }
     }
 
+    /**
+     * Sends an update to all registered handlers.
+     *
+     * @param command Input command update.
+     */
     public void performUpdate(@NotNull CommandAction command) {
         Objects.requireNonNull(command, "Command action cannot be null!");
 
