@@ -76,12 +76,16 @@ public interface Chat {
     /**
      * @return {@code true} if this chat supports messages editing.
      */
-    boolean isEditingSupports();
+    default boolean isEditingSupports() {
+        return false;
+    }
 
     /**
      * @return {@code true} if this chat supports messages deleting.
      */
-    boolean isDeletingSupports();
+    default boolean isDeletingSupports() {
+        return false;
+    }
 
     /**
      * Edit required message in this chat.
@@ -126,5 +130,61 @@ public interface Chat {
     default boolean deleteMessage(long messageId) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("This chat implementation does not support deleting messages!");
     }
+
+    /**
+     * Request chat lock.
+     *
+     * @param locker New locker.
+     *
+     * @return {@code true} if locked successfully.
+     */
+    boolean tryLock(@NotNull ChatLocker locker);
+
+    /**
+     * Waits to be able to lock this chat.
+     *
+     * @param locker New locker.
+     *
+     * @throws InterruptedException If wait was interrupted.
+     */
+    void lock(@NotNull ChatLocker locker) throws InterruptedException;
+
+    /**
+     * @return Is this chat already locked.
+     */
+    boolean isLocked();
+
+    /**
+     * Unlocks this chat.
+     *
+     * Please do not unlock chat if you are not sure that you locked it.
+     */
+    void unlock();
+
+    /**
+     * @return Current locker of this chat.
+     */
+    ChatLocker getLocker();
+
+    /**
+     * Checks two chat rooms for equivalence.
+     * Required for storing chats in standard Java containers.
+     *
+     * @param o Object to compare.
+     *
+     * @return {@code true} if this object is the same as provided.
+     */
+    boolean equals(Object o);
+
+    /**
+     * Returns a hash code value for the object.
+     * Required for storing chats in standard Java containers.
+     *
+     * Hash code must include Social Network implementation identifier
+     * and chat ID number.
+     *
+     * @return hash code for this chat object.
+     */
+    int hashCode();
 
 }

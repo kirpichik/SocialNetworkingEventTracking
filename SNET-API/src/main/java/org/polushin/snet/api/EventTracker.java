@@ -6,7 +6,7 @@ import org.polushin.snet.api.actions.CommandAction;
 
 import java.util.Objects;
 
-public abstract class EventTracker implements CommandHandler, MessageHandler, ChatActionHandler {
+public abstract class EventTracker implements ChatLocker {
 
     protected final SnetState snetState;
 
