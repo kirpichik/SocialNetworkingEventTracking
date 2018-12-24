@@ -1,5 +1,6 @@
 package org.polushin.snet.api;
 
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class AbstractChat<T extends SocialNetwork> implements Chat {
@@ -17,13 +18,7 @@ public abstract class AbstractChat<T extends SocialNetwork> implements Chat {
     @Override
     public boolean tryLock(ChatLocker locker) {
         if (lock.tryLock()) {
-            this.locker = locker;
-            try {
-                locker.onLock(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            implementation.lockChat(this, locker);
+            setLocker(locker);
             return true;
         }
         return false;
@@ -32,14 +27,7 @@ public abstract class AbstractChat<T extends SocialNetwork> implements Chat {
     @Override
     public void lock(ChatLocker locker) throws InterruptedException {
         lock.lockInterruptibly();
-
-        this.locker = locker;
-        try {
-            locker.onLock(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        implementation.lockChat(this, locker);
+        setLocker(locker);
     }
 
     @Override
@@ -63,5 +51,16 @@ public abstract class AbstractChat<T extends SocialNetwork> implements Chat {
     @Override
     public ChatLocker getLocker() {
         return locker;
+    }
+
+    private void setLocker(ChatLocker locker) {
+        Objects.requireNonNull(locker, "Chat locker cannot be null!");
+        this.locker = locker;
+        try {
+            locker.onLock(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        implementation.lockChat(this, locker);
     }
 }

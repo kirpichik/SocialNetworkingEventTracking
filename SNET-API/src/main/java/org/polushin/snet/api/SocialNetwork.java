@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class SocialNetwork {
 
-    protected SnetState snetState;
+    protected final SnetState snetState;
 
     private final Map<Chat, ChatLocker> lockedChats = new ConcurrentHashMap<>();
 
@@ -18,6 +18,9 @@ public abstract class SocialNetwork {
         this.snetState = state;
     }
 
+    /**
+     * Destroys this social network.
+     */
     public abstract void destroy();
 
     /**
@@ -31,10 +34,21 @@ public abstract class SocialNetwork {
         return lockedChats.get(chat);
     }
 
+    /**
+     * Store chat as locked by locker.
+     *
+     * @param chat Chat.
+     * @param locker Locker.
+     */
     void lockChat(Chat chat, ChatLocker locker) {
         lockedChats.put(chat, locker);
     }
 
+    /**
+     * Removes chat from locked storage.
+     *
+     * @param chat Chat.
+     */
     void unlockChat(Chat chat) {
         lockedChats.remove(chat);
     }

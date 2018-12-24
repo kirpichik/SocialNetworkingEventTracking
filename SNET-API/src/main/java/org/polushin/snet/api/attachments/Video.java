@@ -16,8 +16,8 @@ public class Video extends AbstractFile {
      * @param fileSize Size of this file.
      * @param mimeType MIME-type of this file.
      */
-    protected Video(Message message, String fileId, URL url, long fileSize, String mimeType, int width, int height,
-                    Photo thumb) {
+    public Video(Message message, String fileId, URL url, long fileSize, String mimeType, int width, int height,
+                 Photo thumb) {
         super(message, fileId, url, fileSize, mimeType);
 
         this.width = width;
