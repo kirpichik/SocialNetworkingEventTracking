@@ -3,15 +3,15 @@ package org.polushin.snet.api;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
-public abstract class AbstractChat<T extends SocialNetwork> implements Chat {
+public abstract class AbstractChat<N extends SocialNetwork> implements Chat {
 
-    protected final T implementation;
+    protected final N implementation;
 
     private final ReentrantLock lock = new ReentrantLock();
 
     private volatile ChatLocker locker;
 
-    public AbstractChat(T implementation) {
+    public AbstractChat(N implementation) {
         this.implementation = implementation;
     }
 

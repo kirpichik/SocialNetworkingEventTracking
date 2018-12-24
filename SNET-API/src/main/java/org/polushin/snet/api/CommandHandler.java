@@ -2,6 +2,7 @@ package org.polushin.snet.api;
 
 import org.polushin.snet.api.actions.CommandAction;
 
+@FunctionalInterface
 public interface CommandHandler {
 
     /**
