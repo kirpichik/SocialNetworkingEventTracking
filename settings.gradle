@@ -1,4 +1,5 @@
 rootProject.name = 'SocialNetworkingEventTracking'
 include 'SNET-API'
 include 'SNET-Core'
+include 'SNET-TG'
 
