@@ -4,6 +4,7 @@ import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import org.polushin.snet.api.attachments.Attachment;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -85,8 +86,8 @@ public interface Message {
      * @return Ordered list of attachments.
      */
     @NotNull
-    default List<Attachment> getAttachmentsByType(Class<? extends Attachment> type) {
-        return Collections.emptyList();
+    default Collection<Attachment> getAttachmentsByType(Class<? extends Attachment> type) {
+        return Collections.emptySet();
     }
 
 }

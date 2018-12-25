@@ -1,36 +1,32 @@
 package org.polushin.snet.api;
 
 import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import org.polushin.snet.api.attachments.Photo;
 
 import java.util.Collection;
+import java.util.concurrent.Future;
 
 public interface Chat {
 
     /**
      * @return Current chat pinned message or {@code null} if not specified.
      */
-    @Nullable
-    Message getPinnedMessage();
+    Future<Message> getPinnedMessage();
 
     /**
      * @return Chat photo or {@code null} if not specified.
      */
-    @Nullable
-    Photo getPhoto();
+    Future<Photo> getPhoto();
 
     /**
      * @return Chat title or {@code null} if not specified.
      */
-    @Nullable
-    String getTitle();
+    Future<String> getTitle();
 
     /**
      * @return Collection of chat members.
      */
-    @NotNull
-    Collection<User> getUsers();
+    Future<Collection<User>> getUsers();
 
     /**
      * @return Unique ID of this chat.
@@ -44,8 +40,7 @@ public interface Chat {
      *
      * @return Message object or {@code null} if not found.
      */
-    @Nullable
-    Message getMessage(long messageId);
+    Future<Message> getMessage(long messageId);
 
     /**
      * Forward messages by id from this chat with specified message.

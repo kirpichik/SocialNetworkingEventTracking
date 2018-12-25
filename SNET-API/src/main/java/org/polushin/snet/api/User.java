@@ -1,5 +1,7 @@
 package org.polushin.snet.api;
 
+import java.util.concurrent.Future;
+
 public interface User extends Chat {
 
     /**
@@ -10,11 +12,11 @@ public interface User extends Chat {
     /**
      * @return User's first name.
      */
-    String getFirstName();
+    Future<String> getFirstName();
 
     /**
      * @return User's last name.
      */
-    String getLastName();
+    Future<String> getLastName();
 
 }
