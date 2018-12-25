@@ -14,7 +14,7 @@ public class TelegramSocialNetwork extends SocialNetwork {
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
         try {
-            botsApi.registerBot(new TelegramBotImpl(state));
+            botsApi.registerBot(new TelegramBotImpl(this));
         } catch (TelegramApiRequestException e) {
             throw new RuntimeException(e);
         }
@@ -23,5 +23,9 @@ public class TelegramSocialNetwork extends SocialNetwork {
     @Override
     public void destroy() {
         // TODO
+    }
+
+    SnetState getState() {
+        return snetState;
     }
 }

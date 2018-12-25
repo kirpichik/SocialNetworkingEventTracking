@@ -1,75 +1,97 @@
 package org.polushin.snet.tg;
 
 import org.polushin.snet.api.AbstractChat;
+import org.polushin.snet.api.Message;
 import org.polushin.snet.api.SendMessage;
 import org.polushin.snet.api.User;
 import org.polushin.snet.api.attachments.Photo;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 public class TelegramUser extends AbstractChat<TelegramSocialNetwork> implements User {
 
-    public TelegramUser(TelegramSocialNetwork implementation) {
-        super(implementation);
+    private final org.telegram.telegrambots.meta.api.objects.User source;
+
+    TelegramUser(TelegramSocialNetwork impl, org.telegram.telegrambots.meta.api.objects.User source) {
+        super(impl);
+        this.source = source;
     }
 
     @Override
-    public TelegramMessage getPinnedMessage() {
-        return null;
+    public Future<Message> getPinnedMessage() {
+        // TODO - request
+        return CompletableFuture.completedFuture(null);
     }
 
     @Override
-    public Photo getPhoto() {
-        return null;
+    public Future<Photo> getPhoto() {
+        // TODO - request
+        return CompletableFuture.completedFuture(null);
     }
 
     @Override
-    public String getTitle() {
-        return null;
+    public Future<String> getTitle() {
+        String firstName = source.getFirstName();
+        String lastName = source.getLastName();
+        String name;
+        if (firstName == null && lastName == null)
+            name = source.getUserName();
+        else if (firstName == null)
+            name = lastName;
+        else if (lastName == null)
+            name = firstName;
+        else
+            name = firstName + " " + lastName;
+        return CompletableFuture.completedFuture(name);
     }
 
     @Override
-    public Collection<User> getUsers() {
-        return null;
+    public Future<Collection<User>> getUsers() {
+        // TODO - request
+        return CompletableFuture.completedFuture(Collections.emptySet());
     }
 
     @Override
     public long getChatId() {
-        return 0;
+        return source.getId();
     }
 
     @Override
-    public TelegramMessage getMessage(long messageId) {
-        return null;
+    public Future<Message> getMessage(long messageId) {
+        // TODO - request
+        return CompletableFuture.completedFuture(null);
     }
 
     @Override
     public void forwardMessages(SendMessage message, long... messageIds) {
-
+        // TODO - request
     }
 
     @Override
     public TelegramSendMessage sendMessage() {
-        return null;
+        return new TelegramSendMessage(implementation);
     }
 
     @Override
     public TelegramSendMessage sendMessage(String text) {
-        return null;
+        return new TelegramSendMessage(implementation, text);
     }
 
     @Override
     public long getUserId() {
-        return 0;
+        return source.getId();
     }
 
     @Override
-    public String getFirstName() {
-        return null;
+    public Future<String> getFirstName() {
+        return CompletableFuture.completedFuture(source.getFirstName());
     }
 
     @Override
-    public String getLastName() {
-        return null;
+    public Future<String> getLastName() {
+        return CompletableFuture.completedFuture(source.getLastName());
     }
 }

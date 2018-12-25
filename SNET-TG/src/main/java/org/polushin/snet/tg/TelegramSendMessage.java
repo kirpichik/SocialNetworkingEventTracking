@@ -5,6 +5,14 @@ import org.polushin.snet.api.attachments.Attachment;
 
 public class TelegramSendMessage implements SendMessage {
 
+    TelegramSendMessage(TelegramSocialNetwork impl) {
+
+    }
+
+    TelegramSendMessage(TelegramSocialNetwork impl, String text) {
+
+    }
+
     @Override
     public void setText(String text) {
 

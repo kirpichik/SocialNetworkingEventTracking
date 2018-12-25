@@ -1,22 +1,20 @@
 package org.polushin.snet.tg;
 
-import org.polushin.snet.api.SnetState;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class TelegramBotImpl extends TelegramLongPollingBot {
 
-    private final SnetState snetState;
+    private final TelegramSocialNetwork impl;
 
-    TelegramBotImpl(SnetState state) {
-        snetState = state;
+    TelegramBotImpl(TelegramSocialNetwork impl) {
+        this.impl = impl;
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage())
-            handleMessage(update.getMessage());
+            impl.getState().performUpdate(new TelegramMessage(impl, update.getMessage()));
     }
 
     @Override
@@ -27,9 +25,5 @@ public class TelegramBotImpl extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         return null;
-    }
-
-    private void handleMessage(Message message) {
-
     }
 }
