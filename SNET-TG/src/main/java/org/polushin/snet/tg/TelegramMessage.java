@@ -1,24 +1,33 @@
 package org.polushin.snet.tg;
 
 import org.polushin.snet.api.Message;
+import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.attachments.Attachment;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 public class TelegramMessage implements Message {
 
-    private final TelegramSocialNetwork impl;
+    private final TelegramBotImpl impl;
     private final org.telegram.telegrambots.meta.api.objects.Message source;
     private final Map<Class<? extends Attachment>, Collection<Attachment>> attachments = new HashMap<>();
     private final List<Attachment> sortedAttachments = new ArrayList<>();
+    private final SnetUID id;
 
     private TelegramMessage replayToMessage;
     private TelegramUser from;
     private TelegramChat chat;
 
-    TelegramMessage(TelegramSocialNetwork impl, org.telegram.telegrambots.meta.api.objects.Message source) {
+    TelegramMessage(TelegramBotImpl impl, org.telegram.telegrambots.meta.api.objects.Message source) {
         this.impl = impl;
         this.source = source;
+        Integer id = source.getMessageId();
+        if (id == null)
+            this.id = SnetUID.UNSPECIFIED;
+        else
+            this.id = SnetUID.getId(id, TelegramSocialNetwork.class);
         buildAttachments();
     }
 
@@ -27,9 +36,8 @@ public class TelegramMessage implements Message {
     }
 
     @Override
-    public long getMessageId() {
-        Integer id = source.getMessageId();
-        return id == null ? -1 : id;
+    public SnetUID getMessageId() {
+        return id;
     }
 
     @Override
@@ -57,12 +65,21 @@ public class TelegramMessage implements Message {
     }
 
     @Override
-    public TelegramMessage getReplayTo() {
+    public Future<Message> getReplayTo() {
         if (!source.isReply())
-            return null;
+            return CompletableFuture.completedFuture(null);
         if (replayToMessage == null)
             replayToMessage = new TelegramMessage(impl, source.getReplyToMessage());
-        return replayToMessage;
+        return CompletableFuture.completedFuture(replayToMessage);
+    }
+
+    @Override
+    public SnetUID getReplayToId() {
+        if (!source.isReply())
+            return SnetUID.UNSPECIFIED;
+        if (replayToMessage == null)
+            replayToMessage = new TelegramMessage(impl, source.getReplyToMessage());
+        return replayToMessage.getReplayToId();
     }
 
     @Override

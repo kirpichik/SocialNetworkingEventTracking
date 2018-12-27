@@ -1,8 +1,7 @@
 package org.polushin.snet.tg;
 
-import org.polushin.snet.api.AbstractChat;
 import org.polushin.snet.api.Message;
-import org.polushin.snet.api.SendMessage;
+import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
 import org.polushin.snet.api.attachments.Photo;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -12,12 +11,12 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-public class TelegramChat extends AbstractChat<TelegramSocialNetwork> {
+public class TelegramChat extends AbstractTelegramChat {
 
     private final Chat source;
 
-    TelegramChat(TelegramSocialNetwork implementation, Chat source) {
-        super(implementation);
+    TelegramChat(TelegramBotImpl impl, Chat source) {
+        super(impl, SnetUID.getId(source.getId(), TelegramSocialNetwork.class));
         this.source = source;
     }
 
@@ -45,28 +44,14 @@ public class TelegramChat extends AbstractChat<TelegramSocialNetwork> {
     }
 
     @Override
-    public long getChatId() {
-        return source.getId();
+    public boolean equals(Object o) {
+        if (!(o instanceof TelegramChat))
+            return false;
+        return ((TelegramChat) o).id.equals(id);
     }
 
     @Override
-    public Future<Message> getMessage(long messageId) {
-        // TODO - request
-        return CompletableFuture.completedFuture(null);
-    }
-
-    @Override
-    public void forwardMessages(SendMessage message, long... messageIds) {
-        // TODO - request
-    }
-
-    @Override
-    public TelegramSendMessage sendMessage() {
-        return new TelegramSendMessage(implementation);
-    }
-
-    @Override
-    public TelegramSendMessage sendMessage(String text) {
-        return new TelegramSendMessage(implementation, text);
+    public int hashCode() {
+        return id.hashCode();
     }
 }

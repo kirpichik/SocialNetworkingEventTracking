@@ -1,8 +1,7 @@
 package org.polushin.snet.tg;
 
-import org.polushin.snet.api.AbstractChat;
 import org.polushin.snet.api.Message;
-import org.polushin.snet.api.SendMessage;
+import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
 import org.polushin.snet.api.attachments.Photo;
 
@@ -11,12 +10,12 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-public class TelegramUser extends AbstractChat<TelegramSocialNetwork> implements User {
+public class TelegramUser extends AbstractTelegramChat implements User {
 
     private final org.telegram.telegrambots.meta.api.objects.User source;
 
-    TelegramUser(TelegramSocialNetwork impl, org.telegram.telegrambots.meta.api.objects.User source) {
-        super(impl);
+    TelegramUser(TelegramBotImpl impl, org.telegram.telegrambots.meta.api.objects.User source) {
+        super(impl, SnetUID.getId(source.getId(), TelegramSocialNetwork.class));
         this.source = source;
     }
 
@@ -50,39 +49,12 @@ public class TelegramUser extends AbstractChat<TelegramSocialNetwork> implements
 
     @Override
     public Future<Collection<User>> getUsers() {
-        // TODO - request
-        return CompletableFuture.completedFuture(Collections.emptySet());
+        return CompletableFuture.completedFuture(Collections.singleton(this));
     }
 
     @Override
-    public long getChatId() {
-        return source.getId();
-    }
-
-    @Override
-    public Future<Message> getMessage(long messageId) {
-        // TODO - request
-        return CompletableFuture.completedFuture(null);
-    }
-
-    @Override
-    public void forwardMessages(SendMessage message, long... messageIds) {
-        // TODO - request
-    }
-
-    @Override
-    public TelegramSendMessage sendMessage() {
-        return new TelegramSendMessage(implementation);
-    }
-
-    @Override
-    public TelegramSendMessage sendMessage(String text) {
-        return new TelegramSendMessage(implementation, text);
-    }
-
-    @Override
-    public long getUserId() {
-        return source.getId();
+    public SnetUID getUserId() {
+        return id;
     }
 
     @Override
@@ -93,5 +65,17 @@ public class TelegramUser extends AbstractChat<TelegramSocialNetwork> implements
     @Override
     public Future<String> getLastName() {
         return CompletableFuture.completedFuture(source.getLastName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TelegramUser))
+            return false;
+        return ((TelegramUser) o).id.equals(id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

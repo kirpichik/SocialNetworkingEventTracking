@@ -14,7 +14,7 @@ public class TelegramBotImpl extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage())
-            impl.getState().performUpdate(new TelegramMessage(impl, update.getMessage()));
+            impl.getState().performUpdate(new TelegramMessage(this, update.getMessage()));
     }
 
     @Override
@@ -25,5 +25,9 @@ public class TelegramBotImpl extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         return null;
+    }
+
+    TelegramSocialNetwork getImpl() {
+        return impl;
     }
 }
