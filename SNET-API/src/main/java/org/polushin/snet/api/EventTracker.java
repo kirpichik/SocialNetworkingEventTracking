@@ -10,34 +10,9 @@ public abstract class EventTracker implements ChatLocker {
 
     protected final SnetState snetState;
 
-    private boolean enabled;
-
     public EventTracker(@NotNull SnetState snetState) {
         Objects.requireNonNull(snetState, "State cannot be null!");
         this.snetState = snetState;
-    }
-
-    /**
-     * Sets enabled status of this event tracker.
-     *
-     * @param enabled New enabled status.
-     */
-    public void setEnabled(boolean enabled) {
-        if (enabled == this.enabled)
-            return;
-        this.enabled = enabled;
-
-        if (enabled)
-            onEnable();
-        else
-            onDisable();
-    }
-
-    /**
-     * @return Is this event tracker enabled.
-     */
-    public boolean isEnabled() {
-        return enabled;
     }
 
     @Override
@@ -55,7 +30,8 @@ public abstract class EventTracker implements ChatLocker {
 
     }
 
-    protected abstract void onEnable();
-
+    /**
+     * Called when system is stopped.
+     */
     protected abstract void onDisable();
 }

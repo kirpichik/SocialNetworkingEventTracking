@@ -16,6 +16,27 @@ public class SnetState {
     private final Map<String, CommandHandler> commands = new HashMap<>();
 
     /**
+     * Stops all input messages handling.
+     */
+    public void stop() {
+        for (SocialNetwork network : socialNetworks.values()) {
+            try {
+                network.destroy();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (EventTracker tracker : trackers) {
+            try {
+                tracker.onDisable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * Adds message handler.
      *
      * @param handler New handler.
