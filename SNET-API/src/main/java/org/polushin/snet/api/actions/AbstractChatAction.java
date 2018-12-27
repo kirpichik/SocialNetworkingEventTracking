@@ -2,6 +2,7 @@ package org.polushin.snet.api.actions;
 
 import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
+import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
 
 import java.util.Objects;
@@ -9,7 +10,7 @@ import java.util.Objects;
 public abstract class AbstractChatAction implements ChatAction {
 
     protected final Type type;
-    protected final long messageId;
+    protected final SnetUID messageId;
     protected final User from;
     protected final Chat chat;
     protected final long date;
@@ -20,7 +21,7 @@ public abstract class AbstractChatAction implements ChatAction {
         Objects.requireNonNull(type, "Type cannot be null!");
         Objects.requireNonNull(chat, "Chat cannot be null!");
         this.type = type;
-        this.messageId = messageId;
+        this.messageId = SnetUID.getId(messageId, chat.getChatId().impl);
         this.from = from;
         this.chat = chat;
         this.date = date;
@@ -33,7 +34,7 @@ public abstract class AbstractChatAction implements ChatAction {
     }
 
     @Override
-    public long getMessageId() {
+    public SnetUID getMessageId() {
         return messageId;
     }
 

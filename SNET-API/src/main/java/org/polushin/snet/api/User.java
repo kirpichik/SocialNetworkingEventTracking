@@ -7,7 +7,7 @@ public interface User extends Chat {
     /**
      * @return Unique ID of this user.
      */
-    long getUserId();
+    SnetUID getUserId();
 
     /**
      * @return User's first name.

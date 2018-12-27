@@ -7,14 +7,16 @@ import org.polushin.snet.api.attachments.Attachment;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 public interface Message {
 
     /**
-     * @return Unique message ID or {@code -1} if not specified.
+     * @return Unique message ID or {@link SnetUID#UNSPECIFIED}.
      */
-    default long getMessageId() {
-        return -1;
+    default SnetUID getMessageId() {
+        return SnetUID.UNSPECIFIED;
     }
 
     /**
@@ -43,9 +45,15 @@ public interface Message {
     /**
      * @return The original message for replies or {@code null} if not specified.
      */
-    @Nullable
-    default Message getReplayTo() {
-        return null;
+    default Future<Message> getReplayTo() {
+        return CompletableFuture.completedFuture(null);
+    }
+
+    /**
+     * @return The original message id for replies or {@link SnetUID#UNSPECIFIED}.
+     */
+    default SnetUID getReplayToId() {
+        return SnetUID.UNSPECIFIED;
     }
 
     /**

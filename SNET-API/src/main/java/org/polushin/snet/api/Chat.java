@@ -3,6 +3,7 @@ package org.polushin.snet.api;
 import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.attachments.Photo;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.Future;
 
@@ -31,24 +32,40 @@ public interface Chat {
     /**
      * @return Unique ID of this chat.
      */
-    long getChatId();
+    SnetUID getChatId();
 
     /**
      * Requests message from this chat by ID.
      *
      * @param messageId Message ID.
      *
+     * @throws IllegalArgumentException if message id from another implementation.
+     *
      * @return Message object or {@code null} if not found.
      */
-    Future<Message> getMessage(long messageId);
+    Future<Message> getMessage(SnetUID messageId) throws IllegalArgumentException;
 
     /**
      * Forward messages by id from this chat with specified message.
      *
      * @param message Message that will contain forwarded messages.
      * @param messageIds Messages IDs.
+     *
+     * @throws IllegalArgumentException if message ids or send message from another implementation.
      */
-    void forwardMessages(SendMessage message, long... messageIds);
+    default void forwardMessages(SendMessage message, SnetUID... messageIds) throws IllegalArgumentException {
+        forwardMessages(message, Arrays.asList(messageIds));
+    }
+
+    /**
+     * Forward messages by id from this chat with specified message.
+     *
+     * @param message Message that will contain forwarded messages.
+     * @param messageIds Messages IDs.
+     *
+     * @throws IllegalArgumentException if message ids or send message from another implementation.
+     */
+    void forwardMessages(SendMessage message, Collection<SnetUID> messageIds) throws IllegalArgumentException;
 
     /**
      * Builds message to this chat.
@@ -90,9 +107,10 @@ public interface Chat {
      * @return Edit message object.
      *
      * @throws UnsupportedOperationException if chat is not supported messages edit.
+     * @throws IllegalArgumentException if message id from another implementation.
      */
     @NotNull
-    default SendMessage editMessage(long messageId) throws UnsupportedOperationException {
+    default SendMessage editMessage(SnetUID messageId) throws UnsupportedOperationException, IllegalArgumentException {
         throw new UnsupportedOperationException("This chat implementation does not support editing messages!");
     }
 
@@ -106,6 +124,7 @@ public interface Chat {
      * @return Edit message object.
      *
      * @throws UnsupportedOperationException if chat is not supported messages edit.
+     * @throws IllegalArgumentException if message from another implementation.
      */
     @NotNull
     default SendMessage editMessage(Message message) throws UnsupportedOperationException {
@@ -120,9 +139,10 @@ public interface Chat {
      * @return {@code true} if message was deleted.
      *
      * @throws UnsupportedOperationException if chat is not supported messages edit.
+     * @throws IllegalArgumentException if message id from another implementation.
      */
     @NotNull
-    default boolean deleteMessage(long messageId) throws UnsupportedOperationException {
+    default boolean deleteMessage(SnetUID messageId) throws UnsupportedOperationException, IllegalArgumentException {
         throw new UnsupportedOperationException("This chat implementation does not support deleting messages!");
     }
 
