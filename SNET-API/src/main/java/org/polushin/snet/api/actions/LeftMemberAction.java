@@ -2,6 +2,7 @@ package org.polushin.snet.api.actions;
 
 import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
+import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
 
 public class LeftMemberAction extends AbstractChatAction {
@@ -14,7 +15,7 @@ public class LeftMemberAction extends AbstractChatAction {
      * @param chat Chat, where was member invited.
      */
     public LeftMemberAction(User kicker, @NotNull User leftMember, @NotNull Chat chat) {
-        super(Type.LEFT_MEMBER, -1, kicker, chat, -1, null);
+        super(Type.LEFT_MEMBER, SnetUID.UNSPECIFIED, kicker, chat, -1, null);
 
         this.leftMember = leftMember;
     }

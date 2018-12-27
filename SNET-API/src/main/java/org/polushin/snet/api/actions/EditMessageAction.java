@@ -3,17 +3,20 @@ package org.polushin.snet.api.actions;
 import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.Message;
+import org.polushin.snet.api.SnetUID;
+
+import java.util.concurrent.Future;
 
 public abstract class EditMessageAction extends AbstractChatAction {
 
-    private final long editedMessageId;
+    private final SnetUID editedMessageId;
 
     /**
      * @param editedMessageId ID of edited message.
      * @param chat Chat, from where message was edited.
      */
-    public EditMessageAction(long editedMessageId, @NotNull Chat chat) {
-        super(Type.EDIT_MESSAGE, -1, null, chat, -1, null);
+    public EditMessageAction(SnetUID editedMessageId, @NotNull Chat chat) {
+        super(Type.EDIT_MESSAGE, SnetUID.UNSPECIFIED, null, chat, -1, null);
 
         this.editedMessageId = editedMessageId;
     }
@@ -21,12 +24,12 @@ public abstract class EditMessageAction extends AbstractChatAction {
     /**
      * @return ID of edited message.
      */
-    public long getEditedMessageId() {
+    public SnetUID getEditedMessageId() {
         return editedMessageId;
     }
 
     /**
      * @return Full edited message object.
      */
-    public abstract Message getEditedMessage();
+    public abstract Future<Message> getEditedMessage();
 }

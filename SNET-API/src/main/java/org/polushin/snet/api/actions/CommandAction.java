@@ -2,6 +2,7 @@ package org.polushin.snet.api.actions;
 
 import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
+import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
 
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class CommandAction extends AbstractChatAction {
      * @param date Time of sending a command.
      * @param text Plain message text.
      */
-    public CommandAction(long messageId, @NotNull User from, @NotNull Chat chat, long date, @NotNull String text) {
+    public CommandAction(SnetUID messageId, @NotNull User from, @NotNull Chat chat, long date, @NotNull String text) {
         super(Type.COMMAND, messageId, from, chat, date, text);
 
         Objects.requireNonNull(from, "User cannot be null!");

@@ -6,7 +6,7 @@ import org.polushin.snet.api.Message;
 
 import java.util.Objects;
 
-public class AbstractForwardedMessage extends AbstractAttachment implements ForwardedMessage {
+public abstract class AbstractForwardedMessage extends AbstractAttachment implements ForwardedMessage {
 
     private final Chat forwardedFrom;
 

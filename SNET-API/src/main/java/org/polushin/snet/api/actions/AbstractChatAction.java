@@ -16,12 +16,12 @@ public abstract class AbstractChatAction implements ChatAction {
     protected final long date;
     protected final String text;
 
-    protected AbstractChatAction(@NotNull Type type, long messageId, User from, @NotNull Chat chat, long date, String
+    protected AbstractChatAction(@NotNull Type type, SnetUID messageId, User from, @NotNull Chat chat, long date, String
             text) {
         Objects.requireNonNull(type, "Type cannot be null!");
         Objects.requireNonNull(chat, "Chat cannot be null!");
         this.type = type;
-        this.messageId = SnetUID.getId(messageId, chat.getChatId().impl);
+        this.messageId = messageId;
         this.from = from;
         this.chat = chat;
         this.date = date;

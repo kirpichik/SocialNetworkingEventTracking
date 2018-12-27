@@ -2,17 +2,18 @@ package org.polushin.snet.api.actions;
 
 import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
+import org.polushin.snet.api.SnetUID;
 
 public class DeleteMessageAction extends AbstractChatAction {
 
-    private final long deletedMessageId;
+    private final SnetUID deletedMessageId;
 
     /**
      * @param deletedMessageId ID of deleted message.
      * @param chat Chat, from where message was deleted.
      */
-    public DeleteMessageAction(long deletedMessageId, @NotNull Chat chat) {
-        super(Type.DELETE_MESSAGE, -1, null, chat, -1, null);
+    public DeleteMessageAction(SnetUID deletedMessageId, @NotNull Chat chat) {
+        super(Type.DELETE_MESSAGE, SnetUID.UNSPECIFIED, null, chat, -1, null);
 
         this.deletedMessageId = deletedMessageId;
     }
@@ -20,7 +21,7 @@ public class DeleteMessageAction extends AbstractChatAction {
     /**
      * @return ID of deleted message.
      */
-    public long getDeletedMessageId() {
+    public SnetUID getDeletedMessageId() {
         return deletedMessageId;
     }
 }

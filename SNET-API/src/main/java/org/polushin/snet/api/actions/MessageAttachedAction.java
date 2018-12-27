@@ -3,9 +3,11 @@ package org.polushin.snet.api.actions;
 import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.Message;
+import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
 
 import java.util.Objects;
+import java.util.concurrent.Future;
 
 public abstract class MessageAttachedAction extends AbstractChatAction {
 
@@ -17,7 +19,7 @@ public abstract class MessageAttachedAction extends AbstractChatAction {
      * @param chat Chat, where message was attached.
      */
     public MessageAttachedAction(long attachedMessageId, @NotNull User from, @NotNull Chat chat) {
-        super(Type.MESSAGE_ATTACHED, -1, from, chat, -1, null);
+        super(Type.MESSAGE_ATTACHED, SnetUID.UNSPECIFIED, from, chat, -1, null);
 
         Objects.requireNonNull(from, "User cannot be null!");
 
@@ -34,5 +36,5 @@ public abstract class MessageAttachedAction extends AbstractChatAction {
     /**
      * @return Full attached message object.
      */
-    public abstract Message getFullMessage();
+    public abstract Future<Message> getAttachedMessage();
 }
