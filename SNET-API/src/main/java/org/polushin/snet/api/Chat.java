@@ -1,6 +1,5 @@
 package org.polushin.snet.api;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.attachments.Photo;
 
 import java.util.Arrays;
@@ -72,7 +71,6 @@ public interface Chat {
      *
      * @return Building message.
      */
-    @NotNull
     SendMessage sendMessage();
 
     /**
@@ -82,7 +80,6 @@ public interface Chat {
      *
      * @return Building message.
      */
-    @NotNull
     SendMessage sendMessage(String text);
 
     /**
@@ -109,7 +106,6 @@ public interface Chat {
      * @throws UnsupportedOperationException if chat is not supported messages edit.
      * @throws IllegalArgumentException if message id from another implementation.
      */
-    @NotNull
     default SendMessage editMessage(SnetUID messageId) throws UnsupportedOperationException, IllegalArgumentException {
         throw new UnsupportedOperationException("This chat implementation does not support editing messages!");
     }
@@ -126,7 +122,6 @@ public interface Chat {
      * @throws UnsupportedOperationException if chat is not supported messages edit.
      * @throws IllegalArgumentException if message from another implementation.
      */
-    @NotNull
     default SendMessage editMessage(Message message) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("This chat implementation does not support editing messages!");
     }
@@ -141,7 +136,6 @@ public interface Chat {
      * @throws UnsupportedOperationException if chat is not supported messages edit.
      * @throws IllegalArgumentException if message id from another implementation.
      */
-    @NotNull
     default boolean deleteMessage(SnetUID messageId) throws UnsupportedOperationException, IllegalArgumentException {
         throw new UnsupportedOperationException("This chat implementation does not support deleting messages!");
     }
@@ -153,7 +147,7 @@ public interface Chat {
      *
      * @return {@code true} if locked successfully.
      */
-    boolean tryLock(@NotNull ChatLocker locker);
+    boolean tryLock(ChatLocker locker);
 
     /**
      * Waits to be able to lock this chat.
@@ -162,7 +156,7 @@ public interface Chat {
      *
      * @throws InterruptedException If wait was interrupted.
      */
-    void lock(@NotNull ChatLocker locker) throws InterruptedException;
+    void lock(ChatLocker locker) throws InterruptedException;
 
     /**
      * @return Is this chat already locked.

@@ -1,7 +1,5 @@
 package org.polushin.snet.api;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import org.polushin.snet.api.attachments.Attachment;
 
 import java.util.Collection;
@@ -12,7 +10,6 @@ public interface SendMessage {
     /**
      * @return Chat to which the message should be sent.
      */
-    @NotNull
     Chat getChat();
 
     /**
@@ -22,13 +19,11 @@ public interface SendMessage {
      *
      * @return Current send message object.
      */
-    @NotNull
     SendMessage setText(String text);
 
     /**
      * @return Text or caption of this message or {@code null} if not specified.
      */
-    @Nullable
     String getText();
 
     /**
@@ -40,7 +35,6 @@ public interface SendMessage {
      *
      * @return Current send message object.
      */
-    @NotNull
     SendMessage setReplayTo(SnetUID messageId) throws UnsupportedOperationException;
 
     /**
@@ -71,8 +65,7 @@ public interface SendMessage {
      *
      * @return Current send message object.
      */
-    @NotNull
-    SendMessage appendAttachments(@NotNull Attachment... attachments);
+    SendMessage appendAttachments(Attachment... attachments);
 
     /**
      * Appends new attachment. If implementation does not support
@@ -82,13 +75,11 @@ public interface SendMessage {
      *
      * @return Current send message object.
      */
-    @NotNull
-    SendMessage appendAttachments(@NotNull Collection<Attachment> attachments);
+    SendMessage appendAttachments(Collection<Attachment> attachments);
 
     /**
      * @return Ordered list of attachments.
      */
-    @NotNull
     List<Attachment> getAttachments();
 
     /**
@@ -98,15 +89,14 @@ public interface SendMessage {
      *
      * @return Ordered list of attachments.
      */
-    @NotNull
-    Collection<Attachment> getAttachmentsByType(@NotNull Class<? extends Attachment> type);
+    Collection<Attachment> getAttachmentsByType(Class<? extends Attachment> type);
 
     /**
      * Removes attachment.
      *
      * @param attachment Removing attachment.
      */
-    void removeAttachment(@NotNull Attachment attachment);
+    void removeAttachment(Attachment attachment);
 
     /**
      * Sends current message state to the target chat.

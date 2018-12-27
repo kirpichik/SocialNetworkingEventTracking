@@ -1,6 +1,5 @@
 package org.polushin.snet.api.attachments;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Message;
 
 import java.net.URL;
@@ -21,7 +20,7 @@ public class Audio extends AbstractFile {
      * @param performer Performer of the audio.
      * @param title Title of the audio.
      */
-    public Audio(@NotNull Message message, String fileId, URL url, long fileSize, String mimeType, long duration,
+    public Audio(Message message, String fileId, URL url, long fileSize, String mimeType, long duration,
                  String performer, String title) {
         super(message, fileId, url, fileSize, mimeType);
         this.duration = duration;

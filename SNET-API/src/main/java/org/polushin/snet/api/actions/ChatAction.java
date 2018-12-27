@@ -1,6 +1,5 @@
 package org.polushin.snet.api.actions;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Message;
 
 public interface ChatAction extends Message {
@@ -8,7 +7,6 @@ public interface ChatAction extends Message {
     /**
      * @return Action type.
      */
-    @NotNull
     Type getType();
 
     enum Type {

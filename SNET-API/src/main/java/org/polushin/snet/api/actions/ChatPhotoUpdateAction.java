@@ -1,6 +1,5 @@
 package org.polushin.snet.api.actions;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
@@ -19,7 +18,7 @@ public class ChatPhotoUpdateAction extends AbstractChatAction {
      * @param date Time of update.
      * @param newPhoto New chat photo.
      */
-    public ChatPhotoUpdateAction(SnetUID messageId, @NotNull User from, @NotNull Chat chat, long date, @NotNull Photo
+    public ChatPhotoUpdateAction(SnetUID messageId, User from, Chat chat, long date, Photo
             newPhoto) {
         super(Type.CHAT_PHOTO_UPDATE, messageId, from, chat, date, null);
 
@@ -32,7 +31,6 @@ public class ChatPhotoUpdateAction extends AbstractChatAction {
     /**
      * @return New chat photo.
      */
-    @NotNull
     public Photo getNewPhoto() {
         return newPhoto;
     }

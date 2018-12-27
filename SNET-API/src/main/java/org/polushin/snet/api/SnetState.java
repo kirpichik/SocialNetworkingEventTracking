@@ -1,6 +1,5 @@
 package org.polushin.snet.api;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.actions.ChatAction;
 import org.polushin.snet.api.actions.CommandAction;
 
@@ -41,7 +40,7 @@ public class SnetState {
      *
      * @param handler New handler.
      */
-    public void addMessageHandler(@NotNull MessageHandler handler) {
+    public void addMessageHandler(MessageHandler handler) {
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
         messageHandlers.add(handler);
@@ -52,7 +51,7 @@ public class SnetState {
      *
      * @param handler Handler.
      */
-    public void removeMessageHandler(@NotNull MessageHandler handler) {
+    public void removeMessageHandler(MessageHandler handler) {
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
         messageHandlers.remove(handler);
@@ -63,7 +62,7 @@ public class SnetState {
      *
      * @param handler New handler.
      */
-    public void addActionHandler(@NotNull ChatActionHandler handler) {
+    public void addActionHandler(ChatActionHandler handler) {
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
         actionHandlers.add(handler);
@@ -74,7 +73,7 @@ public class SnetState {
      *
      * @param handler Handler.
      */
-    public void removeActionHandler(@NotNull ChatActionHandler handler) {
+    public void removeActionHandler(ChatActionHandler handler) {
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
         actionHandlers.remove(handler);
@@ -86,7 +85,7 @@ public class SnetState {
      * @param commandName Name of command.
      * @param handler New handler.
      */
-    public void setCommandHandler(@NotNull String commandName, @NotNull CommandHandler handler) {
+    public void setCommandHandler(String commandName, CommandHandler handler) {
         Objects.requireNonNull(commandName, "Command name cannot be null!");
         Objects.requireNonNull(handler, "Handler cannot be null!");
 
@@ -98,7 +97,7 @@ public class SnetState {
      *
      * @param commandName Name of command.
      */
-    public void removeCommandHandler(@NotNull String commandName) {
+    public void removeCommandHandler(String commandName) {
         Objects.requireNonNull(commandName, "Command name cannot be null!");
 
         commands.remove(commandName);
@@ -113,7 +112,7 @@ public class SnetState {
      *
      * @throws IllegalStateException If this network type already registered.
      */
-    public <T extends SocialNetwork> void registerSocialNetwork(@NotNull Class<T> clazz, @NotNull T socialNetwork) {
+    public <T extends SocialNetwork> void registerSocialNetwork(Class<T> clazz, T socialNetwork) {
         Objects.requireNonNull(clazz, "Class cannot be null!");
         Objects.requireNonNull(socialNetwork, "Implementation cannot be null!");
 
@@ -131,7 +130,7 @@ public class SnetState {
      *
      * @throws IllegalStateException If this tracker instance already registered.
      */
-    public void registerTracker(@NotNull EventTracker tracker) {
+    public void registerTracker(EventTracker tracker) {
         Objects.requireNonNull(tracker, "Tracker cannot be null!");
 
         addActionHandler(tracker);
@@ -146,7 +145,7 @@ public class SnetState {
      *
      * @param message Message update.
      */
-    public void performUpdate(@NotNull Message message) {
+    public void performUpdate(Message message) {
         Objects.requireNonNull(message, "Message cannot be null!");
 
         try {
@@ -161,7 +160,7 @@ public class SnetState {
      *
      * @param action Action update.
      */
-    public void performUpdate(@NotNull ChatAction action) {
+    public void performUpdate(ChatAction action) {
         Objects.requireNonNull(action, "Chat action cannot be null!");
 
         try {
@@ -176,7 +175,7 @@ public class SnetState {
      *
      * @param command Input command update.
      */
-    public void performUpdate(@NotNull CommandAction command) {
+    public void performUpdate(CommandAction command) {
         Objects.requireNonNull(command, "Command action cannot be null!");
 
         CommandHandler handler = commands.get(command.getCommandName());

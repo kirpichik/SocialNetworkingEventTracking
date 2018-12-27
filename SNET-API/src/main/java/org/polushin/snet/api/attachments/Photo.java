@@ -1,6 +1,5 @@
 package org.polushin.snet.api.attachments;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Message;
 
 import java.net.URL;
@@ -18,7 +17,7 @@ public class Photo extends AbstractFile {
      * @param width Width of photo.
      * @param height Height of photo.
      */
-    public Photo(@NotNull Message message, String fileId, URL url, long fileSize, String mimeType, int width, int
+    public Photo(Message message, String fileId, URL url, long fileSize, String mimeType, int width, int
             height) {
         super(message, fileId, url, fileSize, mimeType);
 

@@ -1,7 +1,5 @@
 package org.polushin.snet.api;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import org.polushin.snet.api.attachments.Attachment;
 
 import java.util.Collection;
@@ -22,7 +20,6 @@ public interface Message {
     /**
      * @return Sender of the message or {@code null} if not specified.
      */
-    @Nullable
     default User getFrom() {
         return null;
     }
@@ -30,7 +27,6 @@ public interface Message {
     /**
      * @return Chat where message is located or {@code null} if not specified.
      */
-    @Nullable
     default Chat getChat() {
         return null;
     }
@@ -73,7 +69,6 @@ public interface Message {
     /**
      * @return Text or caption of this message or {@code null} if not specified.
      */
-    @Nullable
     default String getText() {
         return null;
     }
@@ -81,7 +76,6 @@ public interface Message {
     /**
      * @return Ordered list of attachments.
      */
-    @NotNull
     default List<Attachment> getAttachments() {
         return Collections.emptyList();
     }
@@ -93,7 +87,6 @@ public interface Message {
      *
      * @return Ordered list of attachments.
      */
-    @NotNull
     default Collection<Attachment> getAttachmentsByType(Class<? extends Attachment> type) {
         return Collections.emptySet();
     }

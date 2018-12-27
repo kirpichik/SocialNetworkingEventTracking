@@ -1,6 +1,5 @@
 package org.polushin.snet.api.actions;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
@@ -18,7 +17,7 @@ public class ChatTitleUpdateAction extends AbstractChatAction {
      * @param date Time of update.
      * @param newTitle New chat title.
      */
-    public ChatTitleUpdateAction(SnetUID messageId, @NotNull User from, @NotNull Chat chat, long date, @NotNull String
+    public ChatTitleUpdateAction(SnetUID messageId, User from, Chat chat, long date, String
             newTitle) {
         super(Type.CHAT_TITLE_UPDATE, messageId, from, chat, date, null);
 
@@ -31,7 +30,6 @@ public class ChatTitleUpdateAction extends AbstractChatAction {
     /**
      * @return New title.
      */
-    @NotNull
     public String getNewTitle() {
         return newTitle;
     }

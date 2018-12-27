@@ -1,6 +1,5 @@
 package org.polushin.snet.api.attachments;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.Message;
 
@@ -14,7 +13,7 @@ public abstract class AbstractForwardedMessage extends AbstractAttachment implem
      * @param message Message that containing this attachment.
      * @param forwardedFrom Chat from which the message was forwarded.
      */
-    protected AbstractForwardedMessage(Message message, @NotNull Chat forwardedFrom) {
+    protected AbstractForwardedMessage(Message message, Chat forwardedFrom) {
         super(message);
 
         Objects.requireNonNull(forwardedFrom, "Chat cannot be null!");

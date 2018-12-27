@@ -16,3 +16,17 @@ dependencies {
     compile project.rootProject.project("SNET-TG")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Main-Class': 'org.polushin.example_snet_bot.Main'
+        )
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

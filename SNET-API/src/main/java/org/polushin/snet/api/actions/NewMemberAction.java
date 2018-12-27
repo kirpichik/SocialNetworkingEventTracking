@@ -1,6 +1,5 @@
 package org.polushin.snet.api.actions;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
@@ -16,7 +15,7 @@ public class NewMemberAction extends AbstractChatAction {
      * @param newMember New chat member.
      * @param chat Chat, where was member invited.
      */
-    public NewMemberAction(User inviter, @NotNull User newMember, @NotNull Chat chat) {
+    public NewMemberAction(User inviter, User newMember, Chat chat) {
         super(Type.NEW_MEMBER, SnetUID.UNSPECIFIED, inviter, chat, -1, null);
 
         Objects.requireNonNull(newMember, "New member cannot be null!");
@@ -28,7 +27,7 @@ public class NewMemberAction extends AbstractChatAction {
      * @param newMember New chat member.
      * @param chat Chat, where was member invited.
      */
-    public NewMemberAction(@NotNull User newMember, @NotNull Chat chat) {
+    public NewMemberAction(User newMember, Chat chat) {
         this(null, newMember, chat);
     }
 

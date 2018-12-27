@@ -1,6 +1,5 @@
 package org.polushin.snet.api.actions;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.User;
@@ -16,7 +15,7 @@ public abstract class AbstractChatAction implements ChatAction {
     protected final long date;
     protected final String text;
 
-    protected AbstractChatAction(@NotNull Type type, SnetUID messageId, User from, @NotNull Chat chat, long date, String
+    protected AbstractChatAction(Type type, SnetUID messageId, User from, Chat chat, long date, String
             text) {
         Objects.requireNonNull(type, "Type cannot be null!");
         Objects.requireNonNull(chat, "Chat cannot be null!");

@@ -1,6 +1,5 @@
 package org.polushin.snet.api.attachments;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Message;
 
 import java.net.URL;
@@ -17,7 +16,7 @@ public class Document extends AbstractFile {
      * @param mimeType MIME-type of this file.
      * @param filename Name of this file.
      */
-    public Document(@NotNull Message message, String fileId, URL url, long fileSize, String mimeType, String filename) {
+    public Document(Message message, String fileId, URL url, long fileSize, String mimeType, String filename) {
         super(message, fileId, url, fileSize, mimeType);
 
         this.filename = filename;

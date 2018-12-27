@@ -1,7 +1,5 @@
 package org.polushin.snet.api;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,7 +10,7 @@ public abstract class SocialNetwork {
 
     private final Map<Chat, ChatLocker> lockedChats = new ConcurrentHashMap<>();
 
-    public SocialNetwork(@NotNull SnetState state) {
+    public SocialNetwork(SnetState state) {
         Objects.requireNonNull(state, "State cannot be null!");
 
         this.snetState = state;

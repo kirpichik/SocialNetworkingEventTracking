@@ -1,6 +1,5 @@
 package org.polushin.snet.api;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.actions.ChatAction;
 import org.polushin.snet.api.actions.CommandAction;
 
@@ -10,7 +9,7 @@ public abstract class EventTracker implements ChatLocker {
 
     protected final SnetState snetState;
 
-    public EventTracker(@NotNull SnetState snetState) {
+    public EventTracker(SnetState snetState) {
         Objects.requireNonNull(snetState, "State cannot be null!");
         this.snetState = snetState;
     }

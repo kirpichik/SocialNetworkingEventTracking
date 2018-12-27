@@ -1,6 +1,5 @@
 package org.polushin.snet.api.actions;
 
-import com.sun.istack.internal.NotNull;
 import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.Message;
 import org.polushin.snet.api.SnetUID;
@@ -15,7 +14,7 @@ public abstract class EditMessageAction extends AbstractChatAction {
      * @param editedMessageId ID of edited message.
      * @param chat Chat, from where message was edited.
      */
-    public EditMessageAction(SnetUID editedMessageId, @NotNull Chat chat) {
+    public EditMessageAction(SnetUID editedMessageId, Chat chat) {
         super(Type.EDIT_MESSAGE, SnetUID.UNSPECIFIED, null, chat, -1, null);
 
         this.editedMessageId = editedMessageId;
