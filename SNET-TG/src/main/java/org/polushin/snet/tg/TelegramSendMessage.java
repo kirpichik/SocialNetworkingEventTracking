@@ -4,6 +4,7 @@ import org.polushin.snet.api.Chat;
 import org.polushin.snet.api.SendMessage;
 import org.polushin.snet.api.SnetUID;
 import org.polushin.snet.api.attachments.Attachment;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Collection;
 import java.util.List;
@@ -107,6 +108,17 @@ public class TelegramSendMessage implements SendMessage {
 
     @Override
     public void send() {
-        // TODO
+        org.telegram.telegrambots.meta.api.methods.send.SendMessage send =
+                new org.telegram.telegrambots.meta.api.methods.send.SendMessage();
+        send.setChatId(chat.getChatId().localId);
+        if (text != null)
+            send.setText(text);
+        if (replayTo != null)
+            send.setReplyToMessageId((int) replayTo.localId);
+        try {
+            impl.execute(send);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 }

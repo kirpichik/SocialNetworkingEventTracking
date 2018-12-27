@@ -8,13 +8,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 public class TelegramSocialNetwork extends SocialNetwork {
 
-    public TelegramSocialNetwork(SnetState state) {
+    public TelegramSocialNetwork(SnetState state, String username, String token) {
         super(state);
 
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
         try {
-            botsApi.registerBot(new TelegramBotImpl(this));
+            botsApi.registerBot(new TelegramBotImpl(this, username, token));
         } catch (TelegramApiRequestException e) {
             throw new RuntimeException(e);
         }
